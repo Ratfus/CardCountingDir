@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "CardCounting.C": "cpp",
+        "GlobalVars.C": "cpp",
+        "MemoryItems.C": "cpp",
+        "Messages.C": "cpp",
+        "Calculations.C": "cpp",
+        "UserInput.C": "cpp"
+    }
+}
