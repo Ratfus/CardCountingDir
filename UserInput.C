@@ -2,15 +2,17 @@
 
 extern void UserMessages(uint32_t UserMessages_Message);
 extern void HoriLine(const int LineSize);
+extern void ExitFunction(void);
 
 int CheckForExit(const char * const CheckString)
 {
     for(int i=0; i<=strlen(CheckString); i++)
     {
-        if(CheckString[i]=='E')
+        if(CheckString[i]=='E' || CheckString[i]=='e')  //Terminate if user enters E
         {
-            UserMessages(EXITINGMSG);
-            exit(EXIT_SUCCESS);
+            UserMessages(EXITINGE);
+            Exit_Status=EXITINGE;
+            ExitFunction();
         }
     }
     return EXIT_SUCCESS;
@@ -62,13 +64,9 @@ bool VerifyString(const char * const VerifyString_CardString)
 {
     for(int i=0; i<strlen(VerifyString_CardString)-1; i++)
     {
+        CheckForExit(VerifyString_CardString);
         for(int Card=TWO; Card<=ACE; Card++)
         {
-        if(VerifyString_CardString[i]=='E')
-        {
-        UserMessages(EXITINGMSG);
-        exit(EXIT_SUCCESS);
-        }
         if(VerifyString_CardString[i]==Cards[Card])break;
         if(Card==ACE)return EXIT_FAILURE;
         }
@@ -85,7 +83,12 @@ char *GetString(void)
     {
     UserMessages(ENTERCARDS);
     fgets(GetString_CardString, CARDSPERHAND, stdin);
-    if(strlen(GetString_CardString)>CARDSPERHAND)exit(EXIT_FAILURE);
+    if(strlen(GetString_CardString)>CARDSPERHAND)
+    {
+    Exit_Status=CARDSSTRTOOBIG;
+    UserMessages(CARDSSTRTOOBIG);
+    ExitFunction();
+    }
     FormatString(GetString_CardString);
     }
     return GetString_CardString;

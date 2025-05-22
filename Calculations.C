@@ -1,5 +1,7 @@
 #include "CardCounting.h"
 
+extern void ExitFunction(void);
+
 int32_t CardLookup(char CardLookup_Card)
 {
     for (uint32_t i = 0; i <= ACE; i++)
@@ -16,9 +18,9 @@ int32_t GetValue_HiLow(const char GetValue_Card)
     assert(GetValue_CardNumb <= ACE + 1);
     if (GetValue_CardNumb >= TWO && GetValue_CardNumb <= ACE)
     {
-        if (GetValue_CardNumb <= 6)
+        if (GetValue_CardNumb <= SIX)
             return 1;
-        if (GetValue_CardNumb > 6 && GetValue_CardNumb < TEN)
+        if (GetValue_CardNumb > SIX && GetValue_CardNumb < TEN)
             return 0;
         if (GetValue_CardNumb >= TEN)
             return -1;
@@ -54,6 +56,7 @@ uint32_t PrintStats(const CardStats CardStats_PrintStats)
 {
     uint32_t TotalCards = 0;
     float TestVar = 0;
+    fputc('\n', stdout);
     for (int i = 0; i <= ACE; i++)
     {
         TotalCards += CardStats_PrintStats.CardsInDeck[i];
@@ -109,7 +112,9 @@ void TotalCardsPulled(char *TotalHandPoints_CardHand, CardStats *TotalCardsPulle
             TotalCardsPulled->CardsRemaining[CardLookupInt]--;
             if(TotalCardsPulled->CardsRemaining[CardLookupInt]>(UINT32_MAX-1))
             {
-                exit(-69);
+                Exit_Status=NEGCARDVALUE;
+                UserMessages(NEGCARDVALUE);
+                ExitFunction();
             }
         }
     }

@@ -3,7 +3,7 @@
 #ifndef ENUMS
 #define ENUMS
 #define CARDSPERHAND 50
-#define MAXSTRING 100
+#define MAXSTRING 50
 enum CardNumbers
 {
     TWO = 0,
@@ -41,9 +41,12 @@ const int Cards[13] =
 enum Messages
 {
     ENTERCARDS = 100,
-    EXITINGMSG = 101,
+    EXITINGE = 101,
     ENTERMAXHANDS = 102,
     ENTERDSIZE=103,
+    CARDSSTRTOOBIG=200,
+    MEMALLOCERR=201,
+    NEGCARDVALUE=202,
 };
 
 enum CardTypes
@@ -73,6 +76,7 @@ typedef struct _CardStats
     uint32_t CardTypes[HIGHCARDS+1];
 }CardStats;
 
+static int32_t Exit_Status=0;
 
 #define HLINE HoriLine(50);
 #endif

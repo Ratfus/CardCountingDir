@@ -1,1 +1,1 @@
-extern bool VerifyString(const char * const VerifyString_CardString);
+void ExitFunction(void)
