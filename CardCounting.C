@@ -13,25 +13,28 @@ char *** PPGlobal_Cleanup;
 uint32_t * PGlobal_TotalPlayedCleanup;
 bool HandCalled=0;
 
-bool global_MegaFree()
+uint32_t global_MegaFree()
 {
     free((*PPGlobal_Cleanup));
-    for(uint32_t i=0; i<((* PGlobal_TotalPlayedCleanup)); i++)
+    int i=0;
+    for(; i<((* PGlobal_TotalPlayedCleanup)); i++)
     {
         free((*(*PPGlobal_Cleanup+i)));
     }
-    return EXIT_SUCCESS;
+    return i;
 }
 
 void ExitFunction(void)
 {
-    if(HandCalled)global_MegaFree();
+    if(HandCalled)fprintf(stdout, "Successfully freed: %d items\n", global_MegaFree());
+    else fprintf(stdout, "Nothing to free\n");
+
     if(Exit_Status==0)fprintf(stdout, "%s", "No Issues Detected\n");
     if(Exit_Status>100 && Exit_Status<200)fprintf(stdout, "%s", "Program Ran Correctly, but terminated");
     if(Exit_Status>200)
     {
-    fprintf(stdout, "%s", "Program Had Issues\n");
-    perror("System Issues Include:");
+    fprintf(stdout, "%s", "Program Had Issues\b\n");
+    perror("System Issues Include");
     }
     errno=0;
     exit(Exit_Status);
@@ -48,7 +51,6 @@ int main()
     NewHand(&CardHand, MaxHands);
     for(int i=0; i<MaxHands; i++)
     {
-    HLINE;
     fprintf(stdout, "\nHand Number %d)\n", i+1);
     *(CardHand+i)=GetString();
     CardStats.TotalCardsPlayed+=(strlen(*(CardHand+i))-1);
@@ -58,8 +60,7 @@ int main()
     CardStats.TotalHandsPlayed++;
     }
     ShowAllCards(CardHand, CardStats.TotalHandsPlayed);
-    printf("%s", *(CardHand+0));
+    HLINE;
     ExitFunction();
-    //MegaFree(&CardHand, CardStats.TotalHandsPlayed);
     return 0;
 }
