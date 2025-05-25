@@ -4,6 +4,8 @@
 #define ENUMS
 #define CARDSPERHAND 50
 #define MAXSTRING 50
+#define MAXTOTALHANDS 100
+#define MAXDECKSIZE 100
 enum CardNumbers
 {
     TWO = 0,
@@ -76,7 +78,7 @@ typedef struct _CardStats
     uint32_t CardTypes[HIGHCARDS+1];
 }CardStats;
 
-static int32_t Exit_Status=0;
+int32_t Exit_Status=0;
 
 #define HLINE HoriLine(50);
 #endif

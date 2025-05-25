@@ -1,9 +1,5 @@
 #include "CardCounting.h"
 
-extern void UserMessages(uint32_t UserMessages_Message);
-extern void HoriLine(const int LineSize);
-extern void ExitFunction(void);
-
 int CheckForExit(const char * const CheckString)
 {
     for(int i=0; i<=strlen(CheckString); i++)
@@ -23,7 +19,7 @@ uint32_t GetDeckSize(void)
     char DeckSizeChar[MAXSTRING]="\0";
     char *endPTR=NULL;
     uint32_t GetDeckSize_DeckSize=-1;
-    while(GetDeckSize_DeckSize>100 || GetDeckSize_DeckSize<=0)
+    while(GetDeckSize_DeckSize>MAXDECKSIZE || GetDeckSize_DeckSize<=0)
     {
     UserMessages(ENTERDSIZE);
     fgets(DeckSizeChar, MAXSTRING, stdin);
@@ -40,7 +36,7 @@ uint32_t GetMaxHands(void)
     char MaxHandsChar[MAXSTRING]="\0";
     char *endPTR=NULL;
     uint32_t MaxHands_MaxHandsInt=-1;
-    while(MaxHands_MaxHandsInt>100 || MaxHands_MaxHandsInt<=0)
+    while(MaxHands_MaxHandsInt>MAXTOTALHANDS || MaxHands_MaxHandsInt<=0)
     {
     UserMessages(ENTERMAXHANDS);
     fgets(MaxHandsChar, MAXSTRING, stdin);

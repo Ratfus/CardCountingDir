@@ -1,7 +1,5 @@
 #include "CardCounting.h"
 
-extern void ExitFunction(void);
-
 int32_t CardLookup(char CardLookup_Card)
 {
     for (uint32_t i = 0; i <= ACE; i++)

@@ -1,5 +1,7 @@
 #include "CardCounting.h"
 
+bool HandCalled=0;
+bool global_MegaFree();
 
 void UserMessages(uint32_t UserMessages_Message)
 {
@@ -17,12 +19,12 @@ void UserMessages(uint32_t UserMessages_Message)
         }
         case(ENTERMAXHANDS) :
         {
-            fprintf(stdout, "%s", "Enter the max hands (Enter 'E' to Exit):");
+            fprintf(stdout, "Enter the max hands (Can't go over %d), (Enter 'E' to Exit):", MAXTOTALHANDS);
             break;
         }
         case(ENTERDSIZE) :
         {
-            fprintf(stdout, "%s", "Enter the deck size (Enter 'E' to Exit):");
+            fprintf(stdout, "Enter the deck size (Can't go over %d), (Enter 'E' to Exit):", MAXDECKSIZE);
             break;
         }
         case(CARDSSTRTOOBIG) :
@@ -62,4 +64,19 @@ fputs("\n\n", stdout);
 for(int i=0; i<LineSize; i++)fputc('*', stdout);
 fputc('\n', stdout);
 return;
+}
+
+void ExitFunction(void)
+{
+    if(HandCalled)global_MegaFree();
+    if(Exit_Status==0)fprintf(stdout, "%s", "No Issues Detected\n");
+    if(Exit_Status>100 && Exit_Status<200)fprintf(stdout, "%s", "Program Ran Correctly, but terminated");
+    if(Exit_Status>200)
+    {
+    fprintf(stdout, "%s", "Program Had Issues\n");
+    perror("System Issues Include:");
+    }
+    errno=0;
+    exit(Exit_Status);
+    return;
 }

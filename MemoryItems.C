@@ -1,9 +1,21 @@
 #include "CardCounting.h"
 
-extern void UserMessages(uint32_t UserMessages_Message);
-extern bool HandCalled;
+extern bool HandCalled;  //Determine if any hands were played for free
+char *** PPGlobal_Cleanup;  //Pointer to card hands for free
+uint32_t * PGlobal_TotalPlayedCleanup;  //Global pointer to how many hands played for free
 
-void NewHand(char ***NewHand_CardHand, u_int32_t NewHand_HandNumb)
+bool global_MegaFree()  //Cleanup Function 
+{
+    fprintf(stdout, "Freeing %d items\n", * PGlobal_TotalPlayedCleanup);
+    for(uint32_t i=0; i<((* PGlobal_TotalPlayedCleanup)); i++)
+    {
+        free((*(*PPGlobal_Cleanup+i)));
+    }
+    free((*PPGlobal_Cleanup));
+    return EXIT_SUCCESS;
+}
+
+void NewHand(char ***NewHand_CardHand, u_int32_t NewHand_HandNumb)  //Set up max total hands to play
 {
     bool ReturnVal = EXIT_SUCCESS;
     if (!(*NewHand_CardHand))
@@ -20,7 +32,7 @@ void NewHand(char ***NewHand_CardHand, u_int32_t NewHand_HandNumb)
     return;
 }
 
-bool MegaFree(char ***MegaFree_CardHand, uint32_t CardHands)
+bool MegaFree(char ***MegaFree_CardHand, uint32_t CardHands)  //Not used function
 {
     for(uint32_t i=0; i<CardHands; i++)
     {

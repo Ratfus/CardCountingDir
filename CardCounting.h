@@ -1,13 +1,3 @@
-#ifndef GlobalVars
-#define GlobalVArs
-#include "GlobalVars.C"
-#endif
-
-#ifndef Messages
-#define Messages
-#include "Messages.C"
-#endif
-
 #ifndef MainHeaders
 #define MainHeaders
 #include <stdlib.h>
@@ -19,20 +9,10 @@
 #include <errno.h>
 #include <assert.h>
 #include <math.h>
-#endif
 
-#ifndef MemoryItems
-#define MemoryItems
+#include "GlobalVars.C"
+#include "Messages.C"
 #include "MemoryItems.C"
-#endif
-
-#ifndef Calculations
-#define Calculations
 #include "Calculations.C"
-#endif
-
-#ifndef UserInput
-#define UserInput
 #include "UserInput.C"
 #endif
-
