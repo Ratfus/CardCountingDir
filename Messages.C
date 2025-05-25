@@ -27,17 +27,17 @@ void UserMessages(uint32_t UserMessages_Message)
         }
         case(CARDSSTRTOOBIG) :
         {
-            fprintf(stderr, "%s", "Card String too large:\n");
+            fprintf(stdout, "%s", "Card String too large:\n");
             break;
         }
         case(MEMALLOCERR) :
         {
-            fprintf(stderr, "%s", "Error allocating memory: exiting\n");
+            fprintf(stdout, "%s", "Error allocating memory: exiting\n");
             break;
         }
         case(NEGCARDVALUE) :
         {
-            fprintf(stderr, "%s", "You can't have less than zero cards\n");
+            fprintf(stdout, "%s", "You can't have less than zero cards\n");
             break;
         }
     }
@@ -50,8 +50,7 @@ uint32_t ShowAllCards(char ** CardHand, const uint32_t ShowAllCards_HandsPlayed)
     uint32_t count=0;
     for(int i=0; i<=(ShowAllCards_HandsPlayed-1); i++)
     {
-        *(*(CardHand+i)+strlen(*(CardHand+i))-1)='\0';
-        fprintf(stdout, "%d)%s%s", i+1, *(CardHand+i), i<(ShowAllCards_HandsPlayed-1) ? ", " : "  ||" );
+        fprintf(stdout, "%d) %s", i, *(CardHand+i));
         count=i;
     }
     return count;
